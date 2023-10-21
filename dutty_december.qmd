@@ -1,0 +1,86 @@
+---
+title: "dutty_december"
+format: 
+    html:
+        theme: flatly
+        toc: true
+execute: 
+  echo: false
+  warning: false
+---
+
+```{r}
+library(tidyverse)
+library(googlesheets4)
+```
+
+```{r}
+data <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/11GrYRhI69SXFRHwR7z9_3biy3iwdc05kORG6vc-SR7U/edit?resourcekey#gid=1387964478') 
+   
+```
+
+```{r}
+itens <- data |> 
+    unite('travellers', 
+          c(Name, Fellows),
+          sep = ', ') |> 
+    select(!contains(c('destination','Nigeria'))) |> 
+    pivot_longer(cols = 3:10, 
+                 names_to = 'flight', 
+                 values_to = 'Date') |> 
+    drop_na() |> 
+    mutate(travellers = travellers |> str_remove(', NA'),
+           flight     = flight     |> str_remove('to|from'),
+           Date = lubridate::ymd(Date)) |> 
+    separate(flight, 
+           into = c("direction", "destination"), 
+           sep = "\\s+(?=[A-Za-z]+$)")
+```
+
+# Logistics
+
+## Itineraries
+
+::: panel-tabset
+## Current
+
+```{r}
+#|column:screen 
+
+clrs <- c('#ceb021','#941b01', '#023770', '#00863f')
+
+itens %>%
+    mutate(date_label = format(Date, "%b %d")) |> 
+    group_by(travellers) %>%
+    ggplot(aes(y = travellers, x = Date, 
+               color = destination, label = date_label)) +
+    geom_line(size = 3) +
+    scale_color_manual(values = clrs) +
+    geom_text(vjust = 0, nudge_y = 0.1, show.legend = FALSE, size=6)+
+    xlab("") +
+    ylab("") +
+    theme_minimal() +
+    coord_cartesian(clip = 'off') +
+    theme(legend.position = 'top',
+          legend.text     = element_text(size = 16, face = 'bold'), 
+          legend.title    = element_blank(),
+          axis.text.x     = element_blank(),
+          axis.text.y     =  element_text(size = 16, face = 'bold'))
+```
+
+## Fill Form
+
+```{=html}
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc4xTds-doNB02wulb_atLFLyxJjUaP7lXF1AKLDuIyzF-rzg/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+```
+:::
+
+## Lodging
+
+# Activities
+
+## Ishobi
+
+## Beach Outing
+
+## Madeng
