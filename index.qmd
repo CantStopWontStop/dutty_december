@@ -1,5 +1,5 @@
 ---
-title: "dutty_december"
+title: "Dutty December 2023"
 format: 
     html:
         theme: flatly
@@ -12,6 +12,8 @@ execute:
 ```{r}
 library(tidyverse)
 library(googlesheets4)
+options(repr.plot.width=15, repr.plot.height=8)
+
 ```
 
 ```{r}
@@ -45,7 +47,8 @@ itens <- data |>
 ## Current
 
 ```{r}
-#|column:screen 
+#|column: page 
+#|fig-width: 16
 
 clrs <- c('#ceb021','#941b01', '#023770', '#00863f')
 
@@ -56,16 +59,16 @@ itens %>%
                color = destination, label = date_label)) +
     geom_line(size = 3) +
     scale_color_manual(values = clrs) +
-    geom_text(vjust = 0, nudge_y = 0.1, show.legend = FALSE, size=6)+
+    geom_text(vjust = 0, nudge_y = 0.1, show.legend = FALSE, size=2)+
     xlab("") +
     ylab("") +
     theme_minimal() +
     coord_cartesian(clip = 'off') +
     theme(legend.position = 'top',
-          legend.text     = element_text(size = 16, face = 'bold'), 
+          legend.text     = element_text(size = 10, face = 'bold'), 
           legend.title    = element_blank(),
           axis.text.x     = element_blank(),
-          axis.text.y     =  element_text(size = 16, face = 'bold'))
+          axis.text.y     =  element_text(size = 10, face = 'bold'))
 ```
 
 ## Fill Form
@@ -75,12 +78,11 @@ itens %>%
 ```
 :::
 
-## Lodging
+# Event Calendar
 
-# Activities
+::: {layout-ncol="2"}
+![](gbamgbam.jpg){fig-align="center"}
 
-## Ishobi
+![](balling.jpg){fig-align="center"}
 
-## Beach Outing
-
-## Madeng
+:::
