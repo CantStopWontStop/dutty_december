@@ -78,11 +78,34 @@ itens %>%
 ```
 :::
 
+# Maps
+
+::: panel-tabset
+```{r}
+library(leaflet)
+```
+
+## Freetown
+
+```{r}
+freetown <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Freetown")
+
+leaflet(freetown) %>%
+  addTiles() |> 
+    addMarkers(~Long, ~Lat, 
+               popup = ~Site, 
+               label = ~Site)
+```
+
+## Accra
+
+## Addis Ababa
+:::
+
 # Event Calendar
 
 ::: {layout-ncol="2"}
 ![](gbamgbam.jpg){fig-align="center"}
 
 ![](balling.jpg){fig-align="center"}
-
 :::
