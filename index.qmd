@@ -50,7 +50,7 @@ itens <- data |>
 #|column: page 
 #|fig-width: 16
 
-clrs <- c('#ceb021','#941b01', '#023770', '#00863f')
+clrs <- c('#ceb021','#941b01', '#023770', '#00863f', '#00863f')
 
 itens %>%
     mutate(date_label = format(Date, "%b %d")) |> 
@@ -78,14 +78,16 @@ itens %>%
 ```
 :::
 
-# Maps
+# Locations
+
+## Salone
 
 ::: panel-tabset
 ```{r}
 library(leaflet)
 ```
 
-## Freetown
+## Locations
 
 ```{r}
 freetown <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Freetown")
@@ -97,15 +99,69 @@ leaflet(freetown) %>%
                label = ~Site)
 ```
 
-## Accra
+## Events & Activities
+::: {layout-ncol="2"}
+![](gbamgbam.jpg){fig-align="center"}
 
-## Addis Ababa
+![](balling.jpg){fig-align="center"}
 :::
 
-# Event Calendar
+:::
+
+## Ghana
+::: panel-tabset
+```{r}
+library(leaflet)
+```
+
+## Locations
+
+```{r}
+accra <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Accra")
+
+leaflet(accra) %>%
+  addTiles() |> 
+    addMarkers(~Long, ~Lat, 
+               popup = ~Site, 
+               label = ~Site)
+```
+
+## Events & Activities
+::: {layout-ncol="2"}
+![](gbamgbam.jpg){fig-align="center"}
+
+![](balling.jpg){fig-align="center"}
+:::
+
+:::
+
+## Ethiopia
+
+::: panel-tabset
+```{r}
+library(leaflet)
+```
+
+## Locations
+
+```{r}
+addis <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Addis Ababa")
+
+leaflet(addis) %>%
+  addTiles() |> 
+    addMarkers(~Long, ~Lat, 
+               popup = ~Site, 
+               label = ~Site)
+```
+
+## Events & Activities
 
 ::: {layout-ncol="2"}
 ![](gbamgbam.jpg){fig-align="center"}
 
 ![](balling.jpg){fig-align="center"}
 :::
+
+:::
+
+
