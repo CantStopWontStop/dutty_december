@@ -50,7 +50,7 @@ itens <- data |>
 #|column: page 
 #|fig-width: 16
 
-clrs <- c('#ceb021','#941b01', '#023770', '#00863f', '#00863f')
+clrs <- c('#ceb021','#941b01',  '#00863f')
 
 itens %>%
     mutate(date_label = format(Date, "%b %d")) |> 
@@ -78,6 +78,11 @@ itens %>%
 ```
 :::
 
+# Event Calendar
+
+```{=html}
+<iframe src="https://calendar.google.com/calendar/embed?src=dd31d2d9fc96012e2e79002b436664648909360878a2fd700f7c1e4dd8736d9d%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+```
 # Locations
 
 ## Salone
@@ -90,25 +95,27 @@ library(leaflet)
 ## Locations
 
 ```{r}
-freetown <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Freetown")
+freetown <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Freetown") |> 
+    mutate(label = glue::glue('{Site} | {Description}'))
 
 leaflet(freetown) %>%
   addTiles() |> 
     addMarkers(~Long, ~Lat, 
-               popup = ~Site, 
-               label = ~Site)
+               popup = ~label, 
+               label = ~label)
 ```
 
 ## Events & Activities
+
 ::: {layout-ncol="2"}
 ![](gbamgbam.jpg){fig-align="center"}
 
-![](balling.jpg){fig-align="center"}
+![](balling.jpg){fig-align="center"} ![](art_gallery.jpg){fig-align="center"}
 :::
-
 :::
 
 ## Ghana
+
 ::: panel-tabset
 ```{r}
 library(leaflet)
@@ -117,22 +124,21 @@ library(leaflet)
 ## Locations
 
 ```{r}
-accra <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Accra")
+accra <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Accra")|> 
+    mutate(label = glue::glue('{Site} | {Description}'))
 
 leaflet(accra) %>%
   addTiles() |> 
     addMarkers(~Long, ~Lat, 
-               popup = ~Site, 
-               label = ~Site)
+               popup = ~label, 
+               label = ~label)
 ```
 
 ## Events & Activities
+
 ::: {layout-ncol="2"}
-![](gbamgbam.jpg){fig-align="center"}
-
-![](balling.jpg){fig-align="center"}
+![](bhc.jpg)
 :::
-
 :::
 
 ## Ethiopia
@@ -145,23 +151,18 @@ library(leaflet)
 ## Locations
 
 ```{r}
-addis <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Addis Ababa")
+addis <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1rTORH6W7GI0osfajFj549YMxXFkxsk_WXk-C14Rt_hc/edit#gid=0', sheet = "Addis Ababa")|> 
+    mutate(label = glue::glue('{Site} | {Description}'))
 
 leaflet(addis) %>%
   addTiles() |> 
     addMarkers(~Long, ~Lat, 
-               popup = ~Site, 
-               label = ~Site)
+               popup = ~label, 
+               label = ~label)
 ```
 
 ## Events & Activities
 
 ::: {layout-ncol="2"}
-![](gbamgbam.jpg){fig-align="center"}
-
-![](balling.jpg){fig-align="center"}
 :::
-
 :::
-
-
